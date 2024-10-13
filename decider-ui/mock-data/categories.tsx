@@ -12,6 +12,12 @@ export enum CuisineType {
     Greek = "Greek",
     Persian = "Persian",
     Vietnamese = "Vietnamese",
+    Egyptian = "Egyptian",
+    Lebanese = "Lebanese",
+    Southern = "Southern",
+    Filipino = "Filipino",
+    Brazilian = "Brazilian",
+    Peruvian = "Peruvian",
 }
 
 export enum PriceRange {

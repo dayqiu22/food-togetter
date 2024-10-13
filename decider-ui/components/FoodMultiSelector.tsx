@@ -1,6 +1,5 @@
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
-import { AntDesign } from '@expo/vector-icons';
 import { CuisineType } from '@/mock-data/categories';
 
 export default function FoodMultiSelector() {
@@ -18,29 +17,48 @@ export default function FoodMultiSelector() {
     return (
         <View>
             <TouchableOpacity>
-                <Text className='bg-0C3B2E text-center text-0C3B2E font-bold text-lg'>
-                    SELECT PREFERRED FOOD CATEGORIES
+                <Text style={styles.headerText}>
+                    SELECT PREFERRED FOOD TYPES
                 </Text>
             </TouchableOpacity>
             {expanded && (
-                <FlatList
-                    data={Object.values(CuisineType)}
-                    keyExtractor={(item) => item}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity 
-                            onPress={() => toggleCuisine(item)} 
-                            style={{
-                                padding: 10,
-                                marginBottom: 5,
-                                borderRadius: 10,
-                                backgroundColor: selectedCuisines.includes(item) ? '#FFBA00' : '#FFFFFF',
-                            }}
-                        >
-                            <Text>{item.toUpperCase()}</Text>
-                        </TouchableOpacity>
-                    )}
-                />
+                <ScrollView 
+                    style={styles.scrollView}
+                >
+                {Object.values(CuisineType).map((item) => (
+                    <TouchableOpacity 
+                        key={item.toLowerCase()} 
+                        onPress={() => toggleCuisine(item)} 
+                        style={{
+                            padding: 15,
+                            marginBottom: 5,
+                            borderRadius: 20,
+                            backgroundColor: selectedCuisines.includes(item) ? '#FFBA00' : '#FFFFFF',
+                            paddingBottom: 10,
+                            paddingTop: 10,
+                        }}
+                    >
+                        <Text>{item.toUpperCase()}</Text>
+                    </TouchableOpacity>
+                ))}
+                </ScrollView>
             )}
         </View>
     );
+    
 }
+
+const styles = StyleSheet.create({
+    scrollView: {
+        flexGrow: 1,
+        borderRadius: 20,
+        backgroundColor: 'white',
+        paddingBottom: 50,
+    },
+    headerText: {
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: 'bold',
+        padding: 10,
+    }
+});
