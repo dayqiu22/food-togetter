@@ -1,0 +1,36 @@
+[
+    {
+        "title": "Sunday Outing",
+        "date": "2024-10-13",
+        "members": [1, 2, 3],
+        "accepted": [1, 2],
+        "owner": 1,
+        "user-preferences": {
+            "1": {
+                "cuisine": "Italian",
+                "price-range": "$$"
+            },
+            "2": {
+                "cuisine": "Chinese",
+                "price-range": "$"
+            }
+        }
+    },
+    {
+        "title": "Friendsgiving Dinner",
+        "date": "2024-10-14",
+        "members": [4, 5],
+        "accepted": [4, 5],
+        "owner": 5,
+        "user-preferences": {
+            "4": {
+                "cuisine": "Korean",
+                "price-range": "$$"
+            },
+            "5": {
+                "cuisine": "Korean",
+                "price-range": "$$"
+            }
+        }
+    }
+]
