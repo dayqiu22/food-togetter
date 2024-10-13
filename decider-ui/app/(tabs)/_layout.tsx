@@ -1,4 +1,5 @@
 import { Tabs } from "expo-router"
+import { styled } from 'nativewind'
 
 const TabsLayout  = () => {
     return (
