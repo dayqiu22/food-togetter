@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import CustomButton from '@/components/CustomButton';
 import { useRouter } from 'expo-router';
 import groupsData from '../../mock-data/groups.json'; // Adjust the path as necessary
-import { CuisineType, PriceRange } from '../../mock-data/categories'; // Adjust the path as necessary
+import { CuisineType, PriceRange, CurrentStatus } from '../../mock-data/categories'; // Adjust the path as necessary
 
 interface UserPreference {
     cuisine: CuisineType; // Ensure this uses the CuisineType enum
@@ -13,8 +13,7 @@ interface UserPreference {
 interface Group {
     title: string; // Group title
     date: string; // Date of the group event
-    members: number[]; // Array of member IDs
-    accepted: number[]; // Array of accepted member IDs
+    members: { [key: number]: string }[]; // Updated to reflect the new structure
     owner: number; // Owner's ID
     'user-preferences': {
         [key: string]: UserPreference; // User preferences keyed by user ID (string)
@@ -44,10 +43,10 @@ const Groups = () => {
         setGroups(transformedGroups); // Set the transformed groups
     }, []);
 
-    const renderGroup = ({ item }: { item: Group }) => (
+    const renderGroup = ({ item, index }: { item: Group; index: number }) => (
         <CustomButton
             title={item.title}
-            onPress={() => router.push(`/${item.owner}`)} // Navigate to the group owner ID
+            onPress={() => router.push(`/${index}`)} // Navigate to the group index
             containerStyles='bg-[#0C3B2E]'
         />
     );
@@ -60,7 +59,7 @@ const Groups = () => {
                 <FlatList
                     data={groups}
                     renderItem={renderGroup}
-                    keyExtractor={(item) => item.title} // Use title as key
+                    keyExtractor={(item, index) => index.toString()} // Use index as key
                 />
             )}
         </View>

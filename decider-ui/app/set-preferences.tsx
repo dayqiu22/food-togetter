@@ -1,11 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import MainContent from '@/components/MainContent'
 
 const SetPreferences = () => {
   return (
-    <View>
+    <MainContent>
       <Text>SetPreferences</Text>
-    </View>
+    </MainContent>
   )
 }
 
