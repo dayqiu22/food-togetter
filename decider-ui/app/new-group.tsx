@@ -1,5 +1,7 @@
 import { View, Text, StyleSheet, Dimensions, TextInput } from 'react-native';
 import React, { useState } from 'react';
+import { styled } from 'nativewind';
+import MainContent from '@/components/MainContent';
 
 const { width, height } = Dimensions.get('window');
 
@@ -7,15 +9,17 @@ const NewGroup = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>New Group</Text>
-      <TextInput
-        style={styles.searchBar}
-        placeholder="Search..."
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-      />
-    </View>
+    <MainContent>
+      <View style={styles.container}>
+        <Text style={styles.title}>New Group</Text>
+        <TextInput
+          style={styles.searchBar}
+          placeholder="Search..."
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
+      </View>
+    </MainContent>
   );
 };
 

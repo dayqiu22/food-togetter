@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, ScrollView} from 'react-native'
 import React from 'react'
+import MainContent from '@/components/MainContent'
 
 import FoodMultiSelector from '@/components/FoodMultiSelector'
 
