@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import usersData from '../mock-data/users.json'; // Import user data
 import groupsData from '../mock-data/groups.json'; // Import groups data
 import { CuisineType, PriceRange, CurrentStatus } from '../mock-data/categories'; // Adjust the path as needed
+import Place from '@/models/place';
 
 interface UserPreference {
     cuisine: CuisineType;
@@ -31,6 +32,7 @@ const Status = () => {
     const [group, setGroup] = useState<Group | null>(null);
     const [members, setMembers] = useState<{ name: string; status: CurrentStatus }[]>([]); // Track both names and statuses
     const navigation = useNavigation();
+    const [places, setPlaces] = useState<Place[]>([]);
 
     useEffect(() => {
         navigation.setOptions({ title: 'Group Status' });
@@ -74,20 +76,21 @@ const Status = () => {
 
     
 
-    // const findPlace = async () => {
-    //     try {
-    //       const response = await fetch(`http://10.0.2.2:3000/food-search?cuisine=Chinese&priceRange=${encodeURIComponent('$10-20')}`);
-    //       const data = await response.json();
+    const findPlace = async () => {
+        try {
+          const response = await fetch(`http://10.0.2.2:3000/food-search?cuisine=Korean&priceRange=${encodeURIComponent('$30-45')}`);
+          const data = await response.json();
           
-    //       if (data.candidates && data.candidates.length > 0) {
-    //         setPlaces(data.candidates);
-    //       } else {
-    //         setPlaces([]); // Clear places if no results
-    //       }
-    //     } catch (error) {
-    //       console.error('Error fetching places:', error);
-    //     }
-    // }
+          if (data.candidates && data.candidates.length > 0) {
+            setPlaces(data.candidates);
+          } else {
+            setPlaces([]); // Clear places if no results
+          }
+        } catch (error) {
+          console.error('Error fetching places:', error);
+        }
+    }
+    findPlace();
 
     return (
         <View style={styles.container}>
@@ -104,6 +107,25 @@ const Status = () => {
                 />
             ) : (
                 <Text>No members found for this group.</Text>
+            )}
+            {id == '5' ? (
+                <>
+                    <Text className='font-bold text-lg'>
+                        Recommended restaurant for the group:
+                    </Text>
+                    <FlatList
+                        data={places}
+                        keyExtractor={(item) => item.place_id}
+                        renderItem={({ item }) => (
+                        <View style={{ padding: 10, borderBottomWidth: 1 }}>
+                            <Text style={{ fontWeight: 'bold' }}>{item.name}</Text>
+                            <Text>{item.formatted_address}</Text>
+                        </View>
+                        )}
+                    />
+                </>
+            ) : (
+                <Text>Waiting for friends to submit preferences...</Text>
             )}
         </View>
     );
