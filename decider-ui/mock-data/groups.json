@@ -14,7 +14,8 @@
                 "cuisine": "Chinese",
                 "price-range": "$10-20"
             }
-        }
+        },
+        "result": ""
     },
     {
         "title": "Friendsgiving Dinner",
@@ -31,6 +32,7 @@
                 "cuisine": "Korean",
                 "price-range": "$30-45"
             }
-        }
+        },
+        "result": ""
     }
 ]
