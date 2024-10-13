@@ -29,7 +29,7 @@ interface User {
 const Status = () => {
     const { id } = useLocalSearchParams<{ id: string }>(); // Access the route parameter
     const [group, setGroup] = useState<Group | null>(null);
-    const [members, setMembers] = useState<{ name: string; status: CurrentStatus }[]>([]); // Track both names and statuses
+    const [members, setMembers] = useState<{ name: string; status: CurrentStatus; cuisine?: string; priceRange?: string }[]>([]);
     const navigation = useNavigation();
 
     useEffect(() => {
@@ -63,31 +63,23 @@ const Status = () => {
             const memberDetails = selectedGroup.members.map((member: { [key: string]: CurrentStatus }) => {
                 const memberId = Object.keys(member)[0];
                 const user: User | undefined = usersData.find((user) => user.id === parseInt(memberId));
+                const status = member[memberId];
+
+                // If status is "Accepted", add cuisine and price-range
+                const preference = status === CurrentStatus.Accepted
+                    ? selectedGroup['user-preferences'][memberId]
+                    : null;
+
                 return {
                     name: user ? user.name : 'Unknown',
-                    status: member[memberId],
+                    status,
+                    cuisine: preference ? preference.cuisine : undefined,
+                    priceRange: preference ? preference['price-range'] : undefined,
                 };
             });
             setMembers(memberDetails);
         }
     }, [id]);
-
-    
-
-    // const findPlace = async () => {
-    //     try {
-    //       const response = await fetch(`http://10.0.2.2:3000/food-search?cuisine=Chinese&priceRange=${encodeURIComponent('$10-20')}`);
-    //       const data = await response.json();
-          
-    //       if (data.candidates && data.candidates.length > 0) {
-    //         setPlaces(data.candidates);
-    //       } else {
-    //         setPlaces([]); // Clear places if no results
-    //       }
-    //     } catch (error) {
-    //       console.error('Error fetching places:', error);
-    //     }
-    // }
 
     return (
         <View style={styles.container}>
@@ -96,9 +88,16 @@ const Status = () => {
                 <FlatList
                     data={members}
                     renderItem={({ item }) => (
-                        <Text style={styles.memberName}>
-                            {item.name}: {item.status}
-                        </Text>
+                        <View style={styles.memberContainer}>
+                            <Text style={styles.memberName}>
+                                {item.name}: {item.status}
+                            </Text>
+                            {item.status === CurrentStatus.Accepted && (
+                                <Text style={styles.memberPreference}>
+                                    Cuisine: {item.cuisine}, Price Range: {item.priceRange}
+                                </Text>
+                            )}
+                        </View>
                     )}
                     keyExtractor={(item) => item.name}
                 />
@@ -122,8 +121,14 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
     },
+    memberContainer: {
+        marginVertical: 10,
+    },
     memberName: {
         fontSize: 18,
-        marginVertical: 5,
+    },
+    memberPreference: {
+        fontSize: 16,
+        color: 'gray',
     },
 });
