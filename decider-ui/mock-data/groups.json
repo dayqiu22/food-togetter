@@ -2,8 +2,7 @@
     {
         "title": "Sunday Outing",
         "date": "2024-10-13",
-        "members": [1, 2, 3],
-        "accepted": [1, 2],
+        "members": [{"1": "accepted"}, {"2": "accepted"}, {"3": "pending"}, {"4": "declined"}],
         "owner": 1,
         "user-preferences": {
             "1": {
@@ -20,8 +19,7 @@
     {
         "title": "Friendsgiving Dinner",
         "date": "2024-10-14",
-        "members": [4, 5],
-        "accepted": [4, 5],
+        "members": [{"4": "accepted"}, {"5": "accepted"}],
         "owner": 5,
         "user-preferences": {
             "4": {

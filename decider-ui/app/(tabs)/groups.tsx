@@ -4,6 +4,7 @@ import CustomButton from '@/components/CustomButton';
 import { useRouter } from 'expo-router';
 import groupsData from '../../mock-data/groups.json'; // Adjust the path as necessary
 import { CuisineType, PriceRange } from '../../mock-data/categories'; // Adjust the path as necessary
+import MainContent from '@/components/MainContent';
 
 interface UserPreference {
     cuisine: CuisineType; // Ensure this uses the CuisineType enum
@@ -65,7 +66,7 @@ const Groups = () => {
             )}
         </View>
     );
-};
+
 
 export default Groups;
 

@@ -1,22 +1,38 @@
 import { View, Text, StyleSheet, Dimensions, TextInput } from 'react-native';
 import React, { useState } from 'react';
 import { styled } from 'nativewind';
+import MainContent from '@/components/MainContent';
+import usersData from '../mock-data/users.json';
 
 const { width, height } = Dimensions.get('window');
 
 const NewGroup = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [filteredUsers, setFilteredUsers] = useState(usersData);
+
+  const handleSearch = async (text: string) => {
+    setSearchQuery(text);
+    const filteredData = usersData.filter((user: { name: string }) => user.name.toLowerCase().includes(text.toLowerCase()));
+    setFilteredUsers(filteredData);
+  };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>New Group</Text>
-      <TextInput
-        style={styles.searchBar}
-        placeholder="Search..."
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-      />
-    </View>
+    <MainContent>
+      <View style={styles.container}>
+        <Text style={styles.title}>New Group</Text>
+        <TextInput
+          style={styles.searchBar}
+          placeholder="Search..."
+          value={searchQuery}
+          onChangeText={handleSearch}
+        />
+      <View>
+        {filteredUsers.map(user => (
+          <Text key={user.id}>{user.name}</Text>
+        ))}
+      </View>
+      </View>
+    </MainContent>
   );
 };
 

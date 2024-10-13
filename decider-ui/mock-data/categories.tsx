@@ -22,3 +22,9 @@ export enum PriceRange {
     five = "$40-50",
     six = "$50+",
 }
+
+export enum Status {
+    Pending = "Pending",
+    Accepted = "Accepted",
+    Declined = "Declined",
+}

@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
+import MainContent from '@/components/MainContent';
 import usersData from '../mock-data/users.json'; // Import user data
 import groupsData from '../mock-data/groups.json'; // Import groups data
 import { CuisineType, PriceRange } from '../mock-data/categories'; // Adjust the path as needed
@@ -75,7 +76,6 @@ const Status = () => {
             )}
         </View>
     );
-};
 
 export default Status;
 
