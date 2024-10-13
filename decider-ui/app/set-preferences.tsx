@@ -1,37 +1,41 @@
-import { View, Text, StyleSheet, ScrollView} from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
-import MainContent from '@/components/MainContent'
-import CustomButton from "@/components/CustomButton"
-import { useRouter } from 'expo-router'
-
-import FoodMultiSelector from '@/components/FoodMultiSelector'
-import PriceMultiSelector from '@/components/PriceMultiSelector'
+import { useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons'; // Import icons for back button
+import CustomButton from '@/components/CustomButton';
+import FoodMultiSelector from '@/components/FoodMultiSelector';
+import PriceMultiSelector from '@/components/PriceMultiSelector';
 
 const SetPreferences = () => {
-  const [showPriceSelector, setShowPriceSelector] = useState(false)
+  const [showPriceSelector, setShowPriceSelector] = useState(false);
+  const router = useRouter();
 
   const handlePress = () => {
-    setShowPriceSelector(true) // Show PriceMultiSelector when button is pressed
+    setShowPriceSelector(true); // Show PriceMultiSelector when button is pressed
   };
-
-  const router = useRouter()
 
   return (
     <View style={styles.container}>
+      {/* Back button */}
+      <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+        <Ionicons name="arrow-back" size={24} color="white" />
+      </TouchableOpacity>
+
       <View className="items-center z-10 top-[90%]">
-            <CustomButton 
-                onPress={() => {
-                  showPriceSelector ? router.push('/groups') : handlePress()
-                }}
-                title='ENTER'
-                containerStyles="w-[100%] justify-center items-center bg-[#0C3B2E] padding-[10%]]"
-            />
+        <CustomButton
+          onPress={() => {
+            showPriceSelector ? router.push('/groups') : handlePress();
+          }}
+          title="ENTER"
+          containerStyles="w-[100%] justify-center items-center bg-[#0C3B2E] padding-[10%]]"
+        />
       </View>
-      {showPriceSelector ? 
-      ( <View style={styles.selectorContainer}>
+      {showPriceSelector ? (
+        <View style={styles.selectorContainer}>
           <PriceMultiSelector />
-        </View>) : 
-      ( <View style={styles.selectorContainer}>
+        </View>
+      ) : (
+        <View style={styles.selectorContainer}>
           <FoodMultiSelector />
         </View>
       )}
@@ -47,6 +51,12 @@ const styles = StyleSheet.create({
     paddingTop: '5%',
     paddingBottom: '10%',
   },
+  backButton: {
+    position: 'absolute',
+    top: 40,
+    left: 20,
+    zIndex: 10,
+  },
   selectorContainer: {
     flex: 1,
     width: '90%',
@@ -61,4 +71,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SetPreferences
+export default SetPreferences;
