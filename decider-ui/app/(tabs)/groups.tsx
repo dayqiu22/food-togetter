@@ -2,6 +2,7 @@ import { View, Text, FlatList, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import CustomButton from '@/components/CustomButton';
 import { useRouter } from 'expo-router';
+import MainContent from '@/components/MainContent';
 
 interface Group {
   id: string;
@@ -24,17 +25,19 @@ const Groups = () => {
   );
 
   return (
-    <View style={styles.container}>
-      {groups.length === 0 ? (
-        <Text style={styles.emptyStateText}>Add friends to begin!</Text>
-      ) : (
-        <FlatList
-          data={groups}
-          renderItem={renderGroup}
-          keyExtractor={item => item.id}
-        />
-      )}
-    </View>
+    <MainContent>
+      <View style={styles.container}>
+        {groups.length === 0 ? (
+          <Text style={styles.emptyStateText}>Add friends to begin!</Text>
+        ) : (
+          <FlatList
+            data={groups}
+            renderItem={renderGroup}
+            keyExtractor={item => item.id}
+          />
+        )}
+      </View>
+    </MainContent>
   );
 };
 
