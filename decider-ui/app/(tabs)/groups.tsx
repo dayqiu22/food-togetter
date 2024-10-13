@@ -19,6 +19,7 @@ const Groups = () => {
     <CustomButton
       title={item.name}
       onPress={() => router.push(`/${item.id}`)}
+      containerStyles='bg-[#0C3B2E]'
     />
   );
 
