@@ -15,8 +15,10 @@ export enum CuisineType {
 }
 
 export enum PriceRange {
-    Cheap = "$",
-    Moderate = "$$",
-    Expensive = "$$$",
-    Luxury = "$$$$"
+    one = "$0-10",
+    two = "$10-20",
+    three = "$20-30",
+    four = "$30-40",
+    five = "$40-50",
+    six = "$50+",
 }

@@ -8,11 +8,11 @@
         "user-preferences": {
             "1": {
                 "cuisine": "Italian",
-                "price-range": "$$"
+                "price-range": "$20-30"
             },
             "2": {
                 "cuisine": "Chinese",
-                "price-range": "$"
+                "price-range": "$10-20"
             }
         }
     },
@@ -25,11 +25,11 @@
         "user-preferences": {
             "4": {
                 "cuisine": "Korean",
-                "price-range": "$$"
+                "price-range": "$30-45"
             },
             "5": {
                 "cuisine": "Korean",
-                "price-range": "$$"
+                "price-range": "$30-45"
             }
         }
     }
