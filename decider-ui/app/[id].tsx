@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 import usersData from '../mock-data/users.json'; // Import user data
 import groupsData from '../mock-data/groups.json'; // Import groups data
 import { CuisineType, PriceRange, CurrentStatus } from '../mock-data/categories'; // Adjust the path as needed
@@ -29,8 +30,11 @@ const Status = () => {
     const { id } = useLocalSearchParams<{ id: string }>(); // Access the route parameter
     const [group, setGroup] = useState<Group | null>(null);
     const [members, setMembers] = useState<{ name: string; status: CurrentStatus }[]>([]); // Track both names and statuses
+    const navigation = useNavigation();
 
     useEffect(() => {
+        navigation.setOptions({ title: 'Group Status' });
+
         const transformedGroups: Group[] = groupsData.map((group: any) => ({
             ...group,
             members: group.members.map((member: { [key: string]: string }) => {
