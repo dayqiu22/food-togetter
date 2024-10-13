@@ -15,12 +15,7 @@ router.get('/food-search', async (req, res) => {
 
     try {
         // Construct the Find Place request URL
-        const url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json
-        ?fields=formatted_address%2Cname%2Crating%2Copening_hours
-        &input=${encodeURIComponent(cuisine)}%20restaurant%20with%20price%20${encodeURIComponent(priceRange)}
-        &inputtype=textquery
-        &locationbias=circle%3A2000%4049.2827%2C123.1207
-        &key=${apiKey}`;
+        const url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=formatted_address,name,rating,opening_hours,place_id&input=${encodeURIComponent(cuisine)}%20restaurant%20with%20price%20${encodeURIComponent(priceRange)}&inputtype=textquery&locationbias=circle:100@49.2827,-123.1207&key=${apiKey}`;
 
         // Make the API request
         const response = await axios.get(url);
