@@ -4,6 +4,7 @@ import { useLocalSearchParams } from 'expo-router';
 import usersData from '../mock-data/users.json'; // Import user data
 import groupsData from '../mock-data/groups.json'; // Import groups data
 import { CuisineType, PriceRange } from '../mock-data/categories'; // Adjust the path as needed
+import Place from '@/models/place';
 
 interface UserPreference {
     cuisine: CuisineType; // Ensure this uses the CuisineType enum
@@ -32,6 +33,7 @@ const Status = () => {
     const { id } = useLocalSearchParams<{ id: string }>(); // Access the route parameter
     const [group, setGroup] = useState<Group | null>(null); // Initialize group state
     const [members, setMembers] = useState<string[]>([]); // Initialize members state
+    // const [places, setPlaces] = useState<Place[]>([]);
 
     // Fetch and transform the group data based on the ID
     useEffect(() => {
@@ -60,6 +62,23 @@ const Status = () => {
             setMembers(memberNames); // Set the members state
         }
     }, [id]);
+
+    
+
+    // const findPlace = async () => {
+    //     try {
+    //       const response = await fetch(`http://10.0.2.2:3000/food-search?cuisine=Chinese&priceRange=${encodeURIComponent('$10-20')}`);
+    //       const data = await response.json();
+          
+    //       if (data.candidates && data.candidates.length > 0) {
+    //         setPlaces(data.candidates);
+    //       } else {
+    //         setPlaces([]); // Clear places if no results
+    //       }
+    //     } catch (error) {
+    //       console.error('Error fetching places:', error);
+    //     }
+    // }
 
     return (
         <View style={styles.container}>
