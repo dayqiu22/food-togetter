@@ -21,7 +21,7 @@ interface Group {
     };
     result: string; // Result field, can be any type you need (string)
 }
-
+ // fdfd
 interface User {
     id: number;
     name: string;
