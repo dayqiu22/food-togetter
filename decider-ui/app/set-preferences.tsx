@@ -22,13 +22,13 @@ const SetPreferences = () => {
       </TouchableOpacity>
 
       <View className="items-center z-10 top-[90%]">
-        <CustomButton
-          onPress={() => {
-            showPriceSelector ? router.push('/groups') : handlePress();
-          }}
-          title="ENTER"
-          containerStyles="w-[100%] justify-center items-center bg-[#0C3B2E] padding-[10%]]"
-        />
+            <CustomButton 
+                onPress={() => {
+                  showPriceSelector ? router.push('/new-group') : handlePress()
+                }}
+                title='ENTER'
+                containerStyles="w-[100%] justify-center items-center bg-[#0C3B2E] padding-[10%]]"
+            />
       </View>
       {showPriceSelector ? (
         <View style={styles.selectorContainer}>

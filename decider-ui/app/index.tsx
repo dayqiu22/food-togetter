@@ -4,14 +4,7 @@ import { styled } from 'nativewind'
 import CustomButton from '@/components/CustomButton'
 import MainContent from '@/components/MainContent'
 import { useRouter } from 'expo-router'
-
-interface Place {
-  place_id: string;
-  name: string;
-  formatted_address: string;
-  rating: number;
-  opening_hours: object;
-}
+import Place from '@/models/place'
 
 const App = () => {
   const router = useRouter()
