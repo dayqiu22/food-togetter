@@ -99,7 +99,10 @@ const Status = () => {
           console.error('Error fetching places:', error);
         }
     }
-    findPlace();
+
+    useEffect(() => {
+        if (id == '5') findPlace();
+    }, [])
 
     return (
         <View style={styles.container}>
