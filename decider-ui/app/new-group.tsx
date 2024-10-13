@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, Dimensions, TextInput } from 'react-native';
 import React, { useState } from 'react';
+import { styled } from 'nativewind';
 
 const { width, height } = Dimensions.get('window');
 
