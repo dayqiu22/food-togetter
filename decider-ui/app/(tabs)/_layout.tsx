@@ -1,10 +1,12 @@
 import { Tabs } from "expo-router"
 
-const TabsLayo  = () => {
+const TabsLayout  = () => {
     return (
-    <Tabs>
+    <Tabs screenOptions={{
+        headerShown: false
+    }}>
         <Tabs.Screen name="groups" options={{tabBarLabel: 'Groups'}}/>
-        <Tabs.Screen name="preferences" options={{tabBarLabel: 'Profile'}}/>
+        <Tabs.Screen name="profile" options={{tabBarLabel: 'Profile'}}/>
     </Tabs>
     )
 
