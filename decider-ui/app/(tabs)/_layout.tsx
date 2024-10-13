@@ -16,6 +16,15 @@ const TabsLayout = () => {
                 containerStyles="w-[15%] justify-center items-center bg-[#0C3B2E]"
             />
         </View>
+
+        <View className="items-center z-10 top-[50%]">
+            <CustomButton 
+                onPress={() => router.push('/set-preferences')}
+                title='your preferences'
+                containerStyles="w-[15%] justify-center items-center bg-[#0C3B2E]"
+            />
+        </View>
+
         <Tabs screenOptions={{
             headerShown: false,
             tabBarActiveTintColor: '#0C3B2E',
