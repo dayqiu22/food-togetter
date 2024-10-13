@@ -4,7 +4,6 @@ import CustomButton from '@/components/CustomButton';
 import { useRouter } from 'expo-router';
 import groupsData from '../../mock-data/groups.json'; // Adjust the path as necessary
 import { CuisineType, PriceRange } from '../../mock-data/categories'; // Adjust the path as necessary
-import MainContent from '@/components/MainContent';
 
 interface UserPreference {
     cuisine: CuisineType; // Ensure this uses the CuisineType enum
@@ -14,7 +13,8 @@ interface UserPreference {
 interface Group {
     title: string; // Group title
     date: string; // Date of the group event
-    members: { [key: number]: string }[]; // Updated to reflect the new structure
+    members: number[]; // Array of member IDs
+    accepted: number[]; // Array of accepted member IDs
     owner: number; // Owner's ID
     'user-preferences': {
         [key: string]: UserPreference; // User preferences keyed by user ID (string)
@@ -44,10 +44,10 @@ const Groups = () => {
         setGroups(transformedGroups); // Set the transformed groups
     }, []);
 
-    const renderGroup = ({ item, index }: { item: Group; index: number }) => (
+    const renderGroup = ({ item }: { item: Group }) => (
         <CustomButton
             title={item.title}
-            onPress={() => router.push(`/${index}`)} // Navigate to the group index
+            onPress={() => router.push(`/${item.owner}`)} // Navigate to the group owner ID
             containerStyles='bg-[#0C3B2E]'
         />
     );
@@ -60,11 +60,11 @@ const Groups = () => {
                 <FlatList
                     data={groups}
                     renderItem={renderGroup}
-                    keyExtractor={(item, index) => index.toString()} // Use index as key
+                    keyExtractor={(item) => item.title} // Use title as key
                 />
             )}
         </View>
-    ); // Added missing closing brace here
+    );
 };
 
 export default Groups;
