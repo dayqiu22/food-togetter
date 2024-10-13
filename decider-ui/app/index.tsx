@@ -18,7 +18,7 @@ const App = () => {
           <CustomButton 
             onPress={() => router.push('/groups')}
             title='Sign In'
-
+            containerStyles='bg-[#0C3B2E]'
           />
         </View>
       </SafeAreaView>
