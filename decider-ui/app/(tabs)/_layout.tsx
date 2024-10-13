@@ -1,10 +1,11 @@
 import { Tabs } from "expo-router"
 import { styled } from 'nativewind'
 
-const TabsLayout  = () => {
+const TabsLayout = () => {
     return (
     <Tabs screenOptions={{
-        headerShown: false
+        headerShown: false,
+        tabBarActiveTintColor: 'blue',
     }}>
         <Tabs.Screen name="groups" options={{tabBarLabel: 'Groups'}}/>
         <Tabs.Screen name="profile" options={{tabBarLabel: 'Profile'}}/>
@@ -12,3 +13,5 @@ const TabsLayout  = () => {
     )
 
 }
+
+export default TabsLayout 
