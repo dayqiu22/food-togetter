@@ -4,8 +4,39 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import CustomButton from "@/components/CustomButton";
 import { View } from "react-native";
 
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from '@/state/store';
+import * as Location from 'expo-location';
+import { setLatitude, setLongitude, givePermission } from "@/state/location/deviceLocationSlice";
+
 const TabsLayout = () => {
     const router = useRouter()
+    const deviceLatitude = useSelector((state: RootState) => state.deviceLocation.latitude);
+    const deviceLongitude = useSelector((state: RootState) => state.deviceLocation.longitude);
+    const permission = useSelector((state: RootState) => state.deviceLocation.permission);
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        if (!permission) {
+            // Get device location
+            (async () => {
+      
+                let { status } = await Location.requestForegroundPermissionsAsync();
+                if (status !== 'granted') {
+                  return;
+                }
+                dispatch(givePermission());
+              })();
+        }
+        
+        (async () => {
+            let {coords} = await Location.getCurrentPositionAsync({});
+            dispatch(setLatitude(coords.latitude));
+            dispatch(setLongitude(coords.longitude));
+        })();
+    }
+    , []);
 
     return (
     <>

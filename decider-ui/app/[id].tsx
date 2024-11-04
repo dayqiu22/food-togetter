@@ -2,10 +2,12 @@ import { View, Text, StyleSheet, FlatList } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 import usersData from '../mock-data/users.json'; // Import user data
 import groupsData from '../mock-data/groups.json'; // Import groups data
 import { CuisineType, PriceRange, CurrentStatus } from '../mock-data/categories'; // Adjust the path as needed
 import Place from '@/models/place';
+import { RootState } from '@/state/store';
 
 interface UserPreference {
     cuisine: CuisineType;
@@ -33,6 +35,8 @@ const Status = () => {
     const [members, setMembers] = useState<{ name: string; status: CurrentStatus; cuisine?: string; priceRange?: string }[]>([]);
     const navigation = useNavigation();
     const [places, setPlaces] = useState<Place[]>([]);
+    const deviceLatitude = useSelector((state: RootState) => state.deviceLocation.latitude)?.toString();
+    const deviceLongitude = useSelector((state: RootState) => state.deviceLocation.longitude)?.toString();
 
     useEffect(() => {
         navigation.setOptions({ title: 'Group Status' });
@@ -87,16 +91,17 @@ const Status = () => {
 
     const findPlace = async () => {
         try {
-          const response = await fetch(`http://10.0.2.2:3000/food-search?cuisine=Korean&priceRange=${encodeURIComponent('$30-45')}`);
-          const data = await response.json();
-          
-          if (data.candidates && data.candidates.length > 0) {
-            setPlaces(data.candidates);
-          } else {
-            setPlaces([]); // Clear places if no results
-          }
-        } catch (error) {
-          console.error('Error fetching places:', error);
+            if (deviceLatitude != null && deviceLongitude != null) {
+                const response = await fetch(`http://10.0.2.2:3000/food-search?cuisine=Korean&priceRange=${encodeURIComponent('$30-45')}&latitude=${encodeURIComponent(deviceLatitude)}&longitude=${encodeURIComponent(deviceLongitude)}`);
+                const data = await response.json();
+                if (data.candidates && data.candidates.length > 0) {
+                    setPlaces(data.candidates);
+                } else {
+                    setPlaces([]); // Clear places if no results
+                }
+            }
+        }   catch (error) {
+            console.error('Error fetching places:', error);
         }
     }
 
