@@ -92,7 +92,7 @@ const Status = () => {
     const findPlace = async () => {
         try {
             if (deviceLatitude != null && deviceLongitude != null) {
-                const response = await fetch(`http://10.0.2.2:3000/food-search?cuisine=Korean&priceRange=${encodeURIComponent('$30-45')}&latitude=${encodeURIComponent(deviceLatitude)}&longitude=${encodeURIComponent(deviceLongitude)}`);
+                const response = await fetch(`http://10.0.2.2:8000/food-search?cuisine=Korean&priceRange=${encodeURIComponent('$30-45')}&latitude=${encodeURIComponent(deviceLatitude)}&longitude=${encodeURIComponent(deviceLongitude)}`);
                 const data = await response.json();
                 if (data.candidates && data.candidates.length > 0) {
                     setPlaces(data.candidates);
